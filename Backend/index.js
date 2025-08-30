@@ -42,7 +42,7 @@ async function run() {
         res.send(result);
     })
 
-    // Connect the client to the server	(optional starting in v4.7)
+    // Connect the client to the server	(optional starting in v4.7) kjd
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
