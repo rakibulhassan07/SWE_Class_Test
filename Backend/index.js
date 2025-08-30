@@ -42,6 +42,13 @@ async function run() {
         res.send(result);
     })
 
+    app.put('/task/:id',async(req,res)=>{
+        const id = req.params.id;
+        const updatedTask = req.body;
+        const result = await TaskCollection.updateOne({ _id: ObjectId(id) }, { $set: updatedTask });
+        res.send(result);
+    })
+
     // Connect the client to the server	(optional starting in v4.7) kjd
     await client.connect();
     // Send a ping to confirm a successful connection
