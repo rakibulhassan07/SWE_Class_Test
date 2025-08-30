@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import NewTask from './NewTask.jsx';
 import Tasks from './Tasks.jsx';
+import UpdateTask from './UpdateTask.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,12 @@ const router = createBrowserRouter([
     path: "/mystask",
     element: <Tasks />,
     loader: () => fetch(`http://localhost:5000/task`)
-  }
+  },
+
+    {
+      path:"/updatemytasks/:id",
+      element:<UpdateTask/>
+    }
 ]);
 
 createRoot(document.getElementById('root')).render(

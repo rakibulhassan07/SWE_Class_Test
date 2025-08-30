@@ -37,16 +37,26 @@ async function run() {
       res.send(result);
     });
     app.delete('/task/:id',async(req,res)=>{
-        const id = req.params.id;
-        const result = await TaskCollection.deleteOne({ _id: ObjectId(id) });
-        res.send(result);
+        try {
+            const id = req.params.id;
+            const result = await TaskCollection.deleteOne({ _id: new ObjectId(id) });
+            res.send(result);
+        } catch (error) {
+            console.error('Delete error:', error);
+            res.status(500).send({ error: 'Failed to delete task' });
+        }
     })
 
     app.put('/task/:id',async(req,res)=>{
-        const id = req.params.id;
-        const updatedTask = req.body;
-        const result = await TaskCollection.updateOne({ _id: ObjectId(id) }, { $set: updatedTask });
-        res.send(result);
+        try {
+            const id = req.params.id;
+            const updatedTask = req.body;
+            const result = await TaskCollection.updateOne({ _id: new ObjectId(id) }, { $set: updatedTask });
+            res.send(result);
+        } catch (error) {
+            console.error('Update error:', error);
+            res.status(500).send({ error: 'Failed to update task' });
+        }
     })
 
     // Connect the client to the server	(optional starting in v4.7) kjd
