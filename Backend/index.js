@@ -24,9 +24,23 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    
-    
+    const TaskCollection = client.db('ToDo').collection('task');
 
+    app.get('/task',async(req,res)=>{
+      const tasks = await TaskCollection.find().toArray();
+      res.send(tasks);
+    });
+
+    app.post('/task',async(req,res)=>{
+      const task = req.body;
+      const result = await TaskCollection.insertOne(task);
+      res.send(result);
+    });
+    app.delete('/task/:id',async(req,res)=>{
+        const id = req.params.id;
+        const result = await TaskCollection.deleteOne({ _id: ObjectId(id) });
+        res.send(result);
+    })
 
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
